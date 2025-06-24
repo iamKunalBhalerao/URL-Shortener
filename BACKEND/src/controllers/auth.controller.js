@@ -1,6 +1,6 @@
 import AsyncHandler from "../utils/tryCatchWrapper.js";
 import { EmptyFieldError } from "../utils/errorHandler.js";
-import {  signinUser, signupUser } from "../services/auth.service.js";
+import { signinUser, signupUser } from "../services/auth.service.js";
 import { cookieOptions } from "../utils/helper.js";
 
 export const signupController = AsyncHandler(async (req, res, next) => {
@@ -39,7 +39,10 @@ export const signinController = AsyncHandler(async (req, res, next) => {
       throw new EmptyFieldError("All Fields are Required!");
     }
 
-    const { user, accessToken, refreshToken } = await signinUser(email, password);
+    const { user, accessToken, refreshToken } = await signinUser(
+      email,
+      password
+    );
 
     res
       .status(200)
@@ -52,15 +55,21 @@ export const signinController = AsyncHandler(async (req, res, next) => {
         accessToken,
         refreshToken,
       });
-
   } catch (error) {
     next(error);
   }
-  ``;
 });
 
 export const logoutController = AsyncHandler((req, res, next) => {
   try {
+    res
+      .status(200)
+      .clearCookie("accessToken", cookieOptions)
+      .clearCookie("refreshToken", cookieOptions)
+      .json({
+        success: true,
+        message: "You are Logged Out SuccessFully",
+      });
   } catch (error) {
     next(error);
   }
