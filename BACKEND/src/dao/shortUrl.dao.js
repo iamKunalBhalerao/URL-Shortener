@@ -35,3 +35,7 @@ export const searchShortUrlInDB = async (shortUrl) => {
     throw new Error(err.message || "Error searching short URL in database");
   }
 };
+
+export const getCustomShortUrl = async (slug) => {
+  return await Url.findOne({shortUrl: slug})
+}

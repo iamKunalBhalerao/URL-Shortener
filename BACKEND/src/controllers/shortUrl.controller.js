@@ -1,13 +1,27 @@
 import { searchShortUrlInDB } from "../dao/shortUrl.dao.js";
-import { createShortUrlWithoutUser } from "../services/shortUrl.service.js";
+import {
+  createShortUrlWithoutUser,
+  createShortUrlWithUser,
+} from "../services/shortUrl.service.js";
 import AsyncHandler from "../utils/tryCatchWrapper.js";
 
 export const createShortUrl = AsyncHandler(async (req, res, next) => {
   try {
-    const { fullUrl } = req.body;
+    const { fullUrl, slug } = req.body;
     if (!fullUrl) throw new Error("Full URL is required");
-    const shortUrl = await createShortUrlWithoutUser(fullUrl);
-    res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
+    if (req.user) {
+      const shortUrl = await createShortUrlWithUser(
+        fullUrl,
+        req.userId,
+        slug
+      );
+      res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
+      return;
+    } else {
+      const shortUrl = await createShortUrlWithoutUser(fullUrl);
+      res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
+      return;
+    }
   } catch (err) {
     next(err);
   }
@@ -24,3 +38,12 @@ export const redirectShortUrl = AsyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+// export const createCustomShortUrl  = AsyncHandler(async (req, res, next) => {
+//   try{
+//     const {fullUrl, slug} = req.body;
+//     if(!fullUrl) throw new Error("Full URL is required");
+//     const shortUrl = await createShortUrlWithoutUser(fullUrl, slug);
+//     res.status(200).json({shortUrl: process.env.APP_URL + shortUrl});
+//   }catch(err){next(err)}
+// })

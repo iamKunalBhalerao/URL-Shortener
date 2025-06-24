@@ -3,6 +3,7 @@ import {
   createShortUrl,
   redirectShortUrl,
 } from "../controllers/shortUrl.controller.js";
+import { isAuth } from "../middlewares/auth.middleware.js";
 
 const shortUrlRouter = Router();
 
