@@ -29,3 +29,7 @@ export const generateAccessAndRefreshTokens = async (userId) => {
     throw err;
   }
 };
+
+export const verifyToken = async (accessToken) => {
+  return jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+};
