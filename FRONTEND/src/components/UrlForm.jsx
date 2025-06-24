@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { CreateShortUrl } from "../api/ShortUrl.api";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [copied, setCopied] = useState(false);
+  // const [error, setError] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post("http://localhost:5000/api/", {
-        fullUrl: url,
-      });
-      setShortUrl(data);
-    } catch (error) {
-      console.log("something went Wrong!", error);
-    }
+    const shortUrl = await CreateShortUrl(url);
+    setShortUrl(shortUrl);
   };
 
   const handleCopy = () => {
@@ -62,10 +57,10 @@ const UrlForm = () => {
       </form>
 
       {/* {error && (
-          <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
-            {error}
-          </div>
-        )} */}
+        <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
+          {error}
+        </div>
+      )} */}
 
       {shortUrl && (
         <div className="mt-6">

@@ -7,7 +7,7 @@ export const createShortUrl = AsyncHandler(async (req, res, next) => {
     const { fullUrl } = req.body;
     if (!fullUrl) throw new Error("Full URL is required");
     const shortUrl = await createShortUrlWithoutUser(fullUrl);
-    res.send(process.env.APP_URL + shortUrl);
+    res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
   } catch (err) {
     next(err);
   }
