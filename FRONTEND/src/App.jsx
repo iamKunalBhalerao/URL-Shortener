@@ -1,12 +1,16 @@
 import React from "react";
+import Home from "./pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-4xl text-shadow-lg text-shadow-zinc-200 text-blue-900 font-black">
-        This is URL Shortener
-      </h1>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route index path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
