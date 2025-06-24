@@ -34,6 +34,12 @@ export class NotFoundError extends AppError {
   }
 }
 
+export class EmptyFieldError extends AppError {
+  constructor(message = "All Fields Are Required!") {
+    super(message, 400);
+  }
+}
+
 export class UnauthorizedError extends AppError {
   constructor(message = "Unauthorized access") {
     super(message, 401);
