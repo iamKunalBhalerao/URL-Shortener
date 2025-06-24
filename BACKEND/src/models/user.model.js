@@ -1,12 +1,11 @@
 import mongoose, { Schema, model } from "mongoose";
-import { generateGravatar } from "../utils/generateGravatar";
+import { generateGravatar } from "../utils/generateGravatar.js";
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
       index: true,
     },
@@ -29,6 +28,11 @@ const userSchema = new Schema(
         return generateGravatar(this.email);
       },
     },
+    refreshToken: {
+      type: String,
+      select: false,
+      default: "",
+    }
   },
   { timestamps: true }
 );
