@@ -1,4 +1,4 @@
-import { searchShortUrlInDB } from "../dao/shortUrl.js";
+import { searchShortUrlInDB } from "../dao/shortUrl.dao.js";
 import { createShortUrlWithoutUser } from "../services/shortUrl.service.js";
 import AsyncHandler from "../utils/tryCatchWrapper.js";
 

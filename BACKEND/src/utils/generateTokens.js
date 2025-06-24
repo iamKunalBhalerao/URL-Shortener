@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { findUserById } from "../dao/auth.js";
+import { findUserById } from "../dao/auth.dao.js";
 
 export const generateAccessAndRefreshTokens = async (userId) => {
   try {

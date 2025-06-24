@@ -1,4 +1,4 @@
-import { saveShortUrlInDB } from "../dao/shortUrl.js";
+import { saveShortUrlInDB } from "../dao/shortUrl.dao.js";
 import { generateNanoId } from "../utils/helper.js";
 
 export const createShortUrlWithUser = async (fullUrl, userId) => {
