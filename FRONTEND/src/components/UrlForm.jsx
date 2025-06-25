@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { CreateShortUrl } from "../api/ShortUrl.api";
+import { useSelector } from "react-redux";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [copied, setCopied] = useState(false);
-  // const [error, setError] = useState("");
+  const [error, setError] = useState("");
+  const [customSlug, setCustomSlug] = useState("")
+  const {isAuthenticated} = useSelector((state) => state.auth)
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    const shortUrl = await CreateShortUrl(url);
-    setShortUrl(shortUrl);
+    try{
+      e.preventDefault();
+      const shortUrl = await CreateShortUrl(url);
+      setShortUrl(shortUrl);
+    }catch(error){
+      setError(error)
+    }
   };
 
   const handleCopy = () => {
@@ -25,66 +32,92 @@ const UrlForm = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
+      <div className="bg-white p-8 rounded-lg w-full lg:max-w-md border-1 border-zinc-200">
+        <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
 
-      <form onSubmit={submitHandler} className="space-y-4">
-        <div>
-          <label
-            htmlFor="url"
-            className="block text-sm font-medium text-gray-700 mb-1"
+        <form onSubmit={submitHandler} className="space-y-4">
+          <div>
+            <label
+              htmlFor="url"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Enter your long URL
+            </label>
+            <input
+              type="url"
+              id="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com/very/long/url"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+                {isAuthenticated && (
+                    <div>
+              <label
+                htmlFor="customSlug"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Custom URL (Optional)
+              </label>
+              <input
+                type="text"
+                id="customSlug"
+                value={customSlug}
+                onChange={(e) => setCustomSlug(e.target.value)}
+                placeholder="my-custom-url"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Create a memorable URL (e.g., yourdomain.com/my-custom-url)
+              </p>
+            </div>
+      )}
+
+          <button
+            type="submit"
+            // disabled={loading}
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
-            Enter your long URL
-          </label>
-          <input
-            type="url"
-            id="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://example.com/very/long/url"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
+            Shorten Url
+            {/* {loading ? "Shortening..." : "Shorten URL"} */}
+          </button>
+        </form>
 
-        <button
-          type="submit"
-          // disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-        >
-          Shorten Url
-          {/* {loading ? "Shortening..." : "Shorten URL"} */}
-        </button>
-      </form>
-
-      {/* {error && (
+        {error && (
         <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
           {error}
         </div>
-      )} */}
-
-      {shortUrl && (
-        <div className="mt-6">
-          <h2 className="text-lg font-medium mb-2">Your shortened URL:</h2>
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={shortUrl}
-              readOnly
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none"
-            />
-            <button
-              onClick={handleCopy}
-              className={`px-3 py-2 rounded-r-md cursor-pointer ${
-                copied
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-200 hover:bg-gray-300"
-              }`}
-            >
-              {copied ? "Copied!" : "Copy"}
-            </button>
-          </div>
-        </div>
       )}
+
+
+
+        {shortUrl && (
+          <div className="mt-6">
+            <h2 className="text-lg font-medium mb-2">Your shortened URL:</h2>
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={shortUrl}
+                readOnly
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none"
+              />
+              <button
+                onClick={handleCopy}
+                className={`px-3 py-2 rounded-r-md cursor-pointer ${
+                  copied
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              >
+                {copied ? "Copied!" : "Copy"}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };

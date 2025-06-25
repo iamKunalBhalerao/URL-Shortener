@@ -4,10 +4,8 @@ import UrlForm from "../components/UrlForm";
 const Home = () => {
   return (
     <>
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <div className="min-h-screen -mt-16 flex flex-wrap p-4 gap-4 items-center justify-center">
           <UrlForm />
-        </div>
       </div>
     </>
   );
