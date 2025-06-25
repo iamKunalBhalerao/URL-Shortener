@@ -26,3 +26,23 @@ export const signin = async (email, password) => {
     return error;
   }
 };
+
+export const logout = async () => {
+    axiosInstance.defaults.withCredentials = true;
+  try {
+    const { data } = await axiosInstance.post("/api/auth/logout");
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const isAuth = async () => {
+    axiosInstance.defaults.withCredentials = true;
+  try {
+    const { data } = await axiosInstance.get("/api/auth/me");
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

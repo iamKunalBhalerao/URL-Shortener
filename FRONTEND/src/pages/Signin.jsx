@@ -6,12 +6,16 @@ import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { signin } from "../api/User.api";
 import { useNavigate } from "@tanstack/react-router";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/authSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -21,12 +25,15 @@ const Signin = () => {
 
     try {
       const data = await signin(email, password);
-      setError(data);
+      dispatch(login(data.user));
       if (data.success) {
+        setError(data);
         setLoading(false);
-        navigate("/");
+        navigate({ to: "/dashboard" });
+      } else {
+        setError(data);
+        setLoading(false);
       }
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       setError(error.message || "Registration Failed. Please Try Again.");

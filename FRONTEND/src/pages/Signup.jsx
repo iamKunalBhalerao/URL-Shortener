@@ -6,6 +6,8 @@ import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { signup } from "../api/User.api";
 import { useNavigate } from "@tanstack/react-router";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/slices/authSlice";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -13,6 +15,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
 
@@ -23,12 +27,15 @@ const Signup = () => {
 
     try {
       const data = await signup(username, email, password);
+      dispatch(register(data.user))
+      if (data.success) {
       setError(data);
-      if(data.success) {
-          setLoading(false);
-          navigate("/")
-        }
+      setLoading(false);
+      navigate({to:"/dashboard"});
+      } else {
+        setError(data)
         setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
       setError(error.message || "Registration Failed. Please Try Again.");
@@ -81,7 +88,7 @@ const Signup = () => {
             <Button
               onClick={signUpHandler}
               type="submit"
-              label={loading ? "Signing in..." : "Sign In"}
+              label={loading ? "Signing Up..." : "Sign Up"}
             />
             <BottomWarning
               title="Already have an account?"

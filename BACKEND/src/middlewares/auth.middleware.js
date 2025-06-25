@@ -4,7 +4,6 @@ import { UnauthorizedError } from "../utils/errorHandler.js";
 export const isAuth = async (req, res, next) => {
   try {
     const accessToken  = req.cookies?.accessToken
-    console.log(accessToken)
     if (!accessToken) {
       throw new UnauthorizedError("You are not authorized");
     }

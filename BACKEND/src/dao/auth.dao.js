@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import { UnauthorizedError } from "../utils/errorHandler.js";
+import { hashedPasswordUsingBcrypt } from "../utils/helper.js";
 
 export const findUserByUsernameAndEmail = async (username, email) => {
   try {
@@ -59,10 +60,11 @@ export const findUserById = async (userId) => {
 };
 
 export const createUserInDB = async (username, email, password) => {
+  const hashedPassword = await hashedPasswordUsingBcrypt(password);
 
   return await User.create({
     username,
     email,
-    password,
+    password: hashedPassword,
   });
 };

@@ -11,7 +11,7 @@ const authRouter = Router();
 
 authRouter.route("/signup").post(signupController);
 authRouter.route("/signin").post(signinController);
-authRouter.route("/isauth").post(isAuth, isAuthenticated);
+authRouter.route("/me").get(isAuth, isAuthenticated);
 authRouter.route("/logout").get(logoutController);
 
 export default authRouter;

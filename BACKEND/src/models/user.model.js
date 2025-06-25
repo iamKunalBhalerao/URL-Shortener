@@ -43,8 +43,6 @@ userSchema.pre("save", function (next) {
   if (!this.avatar && this.email) {
     this.avatar = generateGravatar(this.email);
   }
-  if (!this.isModified("password")) return next();
-  this.password = bcrypt.hash(this.password, 10);
   next();
 });
 
