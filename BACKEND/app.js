@@ -31,10 +31,12 @@ app.use(attachUser);
 // Route Imports
 import shortUrlRouter from "./src/routes/shortUrl.route.js";
 import authRouter from "./src/routes/auth.route.js";
+import userRouter from "./src/routes/user.route.js";
 
 // Router Calls
 app.use("/api", shortUrlRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.use(errorHandler);
 
