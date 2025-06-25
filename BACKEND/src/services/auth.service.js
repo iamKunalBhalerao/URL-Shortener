@@ -64,3 +64,15 @@ export const signinUser = async (email, password) => {
     throw err;
   }
 };
+
+export const isUserAuthenticated = async (userId) => {
+  try {
+    const user = await findUserById(userId);
+    if (!user) {
+      throw new UnauthorizedError("You are not authorized");
+    }
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};

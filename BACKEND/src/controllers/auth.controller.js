@@ -1,6 +1,10 @@
 import AsyncHandler from "../utils/tryCatchWrapper.js";
 import { EmptyFieldError } from "../utils/errorHandler.js";
-import { signinUser, signupUser } from "../services/auth.service.js";
+import {
+  isUserAuthenticated,
+  signinUser,
+  signupUser,
+} from "../services/auth.service.js";
 import { cookieOptions } from "../utils/helper.js";
 
 export const signupController = AsyncHandler(async (req, res, next) => {
@@ -72,5 +76,23 @@ export const logoutController = AsyncHandler((req, res, next) => {
       });
   } catch (error) {
     next(error);
+  }
+});
+
+export const isAuthenticated = AsyncHandler(async (req, res, next) => {
+  try {
+    if (req.userId) {
+      const user = await isUserAuthenticated(req.userId);
+      if (!user) {
+        throw new UnauthorizedError("You are not authorized");
+      }
+      res.status(200).json({
+        success: true,
+        message: "You are authenticated",
+        user,
+      });
+    }
+  } catch (err) {
+    next(err);
   }
 });
