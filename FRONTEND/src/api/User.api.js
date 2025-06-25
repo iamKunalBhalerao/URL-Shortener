@@ -46,3 +46,15 @@ export const isAuth = async () => {
     return error;
   }
 };
+
+
+export const getAllUserUrls = async () => {
+    axiosInstance.defaults.withCredentials = true;
+  try {
+    const { data } = await axiosInstance.get("/api/user/urls");
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+

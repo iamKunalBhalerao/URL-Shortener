@@ -6,7 +6,7 @@ import { routeTree } from "./routing/RouteTree";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
-const myQueryClient = new QueryClient();
+export const myQueryClient = new QueryClient();
 
 const router = createRouter({
   routeTree,

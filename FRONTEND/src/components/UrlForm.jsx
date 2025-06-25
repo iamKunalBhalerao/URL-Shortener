@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CreateShortUrl } from "../api/ShortUrl.api";
 import { useSelector } from "react-redux";
+import { myQueryClient } from "../main";
 
 const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -13,8 +14,11 @@ const UrlForm = () => {
   const submitHandler = async (e) => {
     try{
       e.preventDefault();
-      const shortUrl = await CreateShortUrl(url);
+      const shortUrl = await CreateShortUrl(url, customSlug);
       setShortUrl(shortUrl);
+      myQueryClient.invalidateQueries({
+        queryKey: ["userUrls"],
+      })
     }catch(error){
       setError(error)
     }
@@ -88,7 +92,7 @@ const UrlForm = () => {
 
         {error && (
         <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
-          {error}
+          {error.message}
         </div>
       )}
 

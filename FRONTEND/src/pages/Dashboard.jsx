@@ -1,14 +1,16 @@
-import React from 'react'
-import UrlForm from '../components/UrlForm'
+import React from "react";
+import UrlForm from "../components/UrlForm";
+import UserUrls from "../components/UserUrls";
 
 const Dashboard = () => {
   return (
     <>
-    <div className="min-h-screen -mt-16 flex flex-wrap p-4 gap-4 items-center justify-center">
-      <UrlForm />
-    </div>
+      <div className=" flex flex-col mb-4 flex-wrap p-4 gap-4 items-center justify-center">
+        <UrlForm />
+        <UserUrls />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
