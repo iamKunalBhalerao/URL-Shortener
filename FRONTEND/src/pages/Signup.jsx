@@ -5,7 +5,7 @@ import InputBox from "../components/InputBox";
 import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { signup } from "../api/User.api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 
 const Signup = () => {
   const [username, setUsername] = useState("");

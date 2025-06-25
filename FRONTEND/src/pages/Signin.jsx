@@ -5,7 +5,7 @@ import InputBox from "../components/InputBox";
 import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { signin } from "../api/User.api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -16,8 +16,6 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const signInHandler = async () => {
-
-
     setLoading(true);
     setError("");
 
@@ -58,7 +56,8 @@ const Signin = () => {
               label="Password"
               placeholder={"Strong Password"}
             />
-            {error.success ? (<div>
+            {error.success ? (
+              <div>
                 <p className="text-sm font-normal text-green-500 text-center">
                   {error.message}
                 </p>
@@ -75,7 +74,11 @@ const Signin = () => {
               type="submit"
               label={loading ? "Signing In..." : "Sign In"}
             />
-            <BottomWarning title="Don't have an account?" buttontxt="Sign Up" to={"/signup"} />
+            <BottomWarning
+              title="Don't have an account?"
+              buttontxt="Sign Up"
+              to={"/signup"}
+            />
           </div>
         </div>
       </div>
