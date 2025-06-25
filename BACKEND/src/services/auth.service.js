@@ -2,11 +2,10 @@ import { generateAccessAndRefreshTokens } from "../utils/generateTokens.js";
 import { conflictError, UnauthorizedError } from "../utils/errorHandler.js";
 import {
   createUserInDB,
-  findUserByEmail,
+  findUserByEmailAndComparePassword,
   findUserById,
   findUserByUsernameAndEmail,
 } from "../dao/auth.dao.js";
-import { comparePasswordUsingBcrypt } from "../utils/helper.js";
 
 export const signupUser = async (username, email, password) => {
   try {
@@ -33,27 +32,14 @@ export const signupUser = async (username, email, password) => {
 
 export const signinUser = async (email, password) => {
   try {
-    const user = await findUserByEmail(email);
-    if (!user) {
-      throw new UnauthorizedError(
-        "The email or password you entered is incorrect"
-      );
-    }
-
-    const isPasswordValid = await comparePasswordUsingBcrypt({
-      password: password,
-      hashedPassword: user.password,
-    });
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new UnauthorizedError(
-        "The email or password you entered is incorrect"
-      );
-    }
+    const findUser = await findUserByEmailAndComparePassword(email, password);
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      user._id
+      findUser._id
     );
+
+    const user = findUser.toObject();
+    delete user.password;
 
     return {
       user,

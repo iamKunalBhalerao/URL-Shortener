@@ -1,5 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 import { generateGravatar } from "../utils/generateGravatar.js";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -20,6 +21,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      // select: false,
     },
     avatar: {
       type: String,
@@ -31,7 +33,7 @@ const userSchema = new Schema(
       type: String,
       select: false,
       default: "",
-    }
+    },
   },
   { timestamps: true }
 );
@@ -41,8 +43,14 @@ userSchema.pre("save", function (next) {
   if (!this.avatar && this.email) {
     this.avatar = generateGravatar(this.email);
   }
+  if (!this.isModified("password")) return next();
+  this.password = bcrypt.hash(this.password, 10);
   next();
 });
+
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 const User = model("User", userSchema);
 

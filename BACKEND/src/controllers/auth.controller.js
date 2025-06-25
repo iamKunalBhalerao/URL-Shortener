@@ -56,8 +56,6 @@ export const signinController = AsyncHandler(async (req, res, next) => {
         success: true,
         message: "You are Signed In SuccessFully",
         user,
-        accessToken,
-        refreshToken,
       });
   } catch (error) {
     next(error);

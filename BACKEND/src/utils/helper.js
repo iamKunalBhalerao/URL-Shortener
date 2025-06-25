@@ -15,7 +15,3 @@ export const generateNanoId = (length) => {
 export const hashedPasswordUsingBcrypt = async (password) => {
   return await bcrypt.hash(password, 10)
 }
-
-export const comparePasswordUsingBcrypt = async ({password, hashedPassword}) => {
-  return await bcrypt.compare(password, hashedPassword)
-}
