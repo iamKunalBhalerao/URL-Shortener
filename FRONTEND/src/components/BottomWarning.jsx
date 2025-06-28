@@ -6,7 +6,7 @@ const BottomWarning = ({ title, buttontxt, to }) => {
   const navigate = useNavigate()
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex px-2 justify-center items-center">
       <p className="text-sm font-normal text-zinc-500 text-center">{title}</p>
       <p onClick={() => navigate({to: to})} className="text-sm font-normal text-center text-blue-600 cursor-pointer">{buttontxt}</p>
     </div>

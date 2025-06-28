@@ -1,11 +1,21 @@
 import React from "react";
-import UrlForm from "../components/UrlForm";
+import Hero from "../sections/Hero";
+import About from "../sections/About";
+import Fearures from "../sections/Fearures";
+import CTA from "../sections/CTA";
+import Footer from "../sections/Footer";
+// import UrlForm from "../components/UrlForm";
 
 const Home = () => {
   return (
     <>
-      <div className="min-h-screen -mt-16 flex flex-wrap p-4 gap-4 items-center justify-center">
-          <UrlForm />
+      <div className="min-h-screen flex flex-col items-center bg-slate-50">
+          {/* <UrlForm /> */}
+          <Hero />
+          <Fearures />
+          <About />
+          <CTA />
+          <Footer />
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
+import OverallButton from "./OverallButton";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,14 +18,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white w-full shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed p-2 w-full font-[gilroy]">
+      <div className="max-w-7xl mx-auto bg-white shadow rounded-xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/* Left side - Logo/Name */}
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-blue-600 font-bold text-xl">
-                URL Shortener
+          <div className="flex items-center justify-center gap-4">
+            <Link to="/" className="flex items-center justify-center">
+              <span className="text-zinc-600 font-light cursor-pointer text-shadow-neutral-400 text-2xl">
+                SHORTIVE
               </span>
             </Link>
           </div>
@@ -59,16 +59,11 @@ const Navbar = () => {
               <>
                 <p
                   onClick={() => goto("/signin")}
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-600 hover:text-gray-900  cursor-pointer px-3 py-2 rounded-md text-lg font-medium"
                 >
                   Sign In
                 </p>
-                <p
-                  onClick={() => goto("/signup")}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                >
-                  Sign Up
-                </p>
+                <OverallButton to={"/signup"} btnText={"Sing Up"} />
               </>
             )}
           </div>
@@ -144,7 +139,7 @@ const Navbar = () => {
                   </div>
                   <div className="mt-3 space-y-1">
                     <button
-                      className="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 cursor-pointer"
                       onClick={() => goto("/logout")}
                     >
                       Logout
@@ -156,13 +151,13 @@ const Navbar = () => {
               <>
                 <p
                   onClick={() => goto("/signin")}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
                 >
                   Sign In
                 </p>
                 <p
                   onClick={() => goto("/signup")}
-                  className="block px-3 py-2 rounded-md text-base font-medium bg-blue-50 text-blue-700 hover:bg-blue-100"
+                  className="block px-3 py-2 rounded-md text-base font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 cursor-pointer"
                 >
                   Sign Up
                 </p>
