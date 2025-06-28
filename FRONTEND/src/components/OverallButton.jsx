@@ -10,7 +10,7 @@ const OverallButton = ({ btnText, to }) => {
     <>
       <button
         onClick={() => goto(to)}
-        className="px-4 py-2 cursor-pointer text-white bg-zinc-700 hover:bg-black rounded-lg"
+        className="flex items-center justify-center gap-2 px-4 py-2 cursor-pointer text-white bg-zinc-900 hover:bg-black rounded-lg"
       >
         {btnText}
       </button>

@@ -13,6 +13,7 @@ const UrlForm = () => {
   const [customSlug, setCustomSlug] = useState("");
   const [showQr, setShowQr] = useState(false);
   const [showQrBtn, setShowQrBtn] = useState(false);
+  
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   const submitHandler = async (e) => {
