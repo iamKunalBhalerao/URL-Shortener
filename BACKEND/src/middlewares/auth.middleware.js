@@ -1,4 +1,4 @@
-import { verifyToken } from "../utils/generateTokens.js";
+import { verifyAccessToken } from "../utils/generateTokens.js";
 import { UnauthorizedError } from "../utils/errorHandler.js";
 
 export const isAuth = async (req, res, next) => {
@@ -8,7 +8,7 @@ export const isAuth = async (req, res, next) => {
       throw new UnauthorizedError("You are not authorized");
     }
 
-    const decoded = await verifyToken(accessToken);
+    const decoded = await verifyAccessToken(accessToken);
     if (!decoded) {
         throw new UnauthorizedError("You are not authorized");
     }

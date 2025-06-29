@@ -30,6 +30,10 @@ export const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-export const verifyToken = async (accessToken) => {
+export const verifyAccessToken = async (accessToken) => {
   return jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+};
+
+export const verifyRefreshToken = async (refreshToken) => {
+  return jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 };

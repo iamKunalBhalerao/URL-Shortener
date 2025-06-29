@@ -1,7 +1,8 @@
 import AsyncHandler from "../utils/tryCatchWrapper.js";
-import { EmptyFieldError } from "../utils/errorHandler.js";
+import { EmptyFieldError, UnauthorizedError } from "../utils/errorHandler.js";
 import {
   isUserAuthenticated,
+  refreshTokens,
   signinUser,
   signupUser,
 } from "../services/auth.service.js";
@@ -94,3 +95,27 @@ export const isAuthenticated = AsyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+export const refreshAccessAndRefreshTokens = AsyncHandler(async (req, res, next) => {
+  try {
+    const inCommingRefreshToken = req.cookies.refreshToken;
+    if(!inCommingRefreshToken) {
+      throw new UnauthorizedError("Unauthorized Request!")
+    }
+
+    const {accessToken, refreshToken} = await refreshTokens(inCommingRefreshToken)
+
+    res
+      .status(200)
+      .cookie("accessToken", accessToken, cookieOptions)
+      .cookie("refreshToken", refreshToken, cookieOptions)
+      .json({
+        success: true,
+        message: "Tokens are Refreshed SucccessFully.",
+        user,
+      });
+
+  } catch (error) {
+    next(error)
+  }
+})

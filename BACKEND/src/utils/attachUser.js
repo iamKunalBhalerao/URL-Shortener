@@ -1,5 +1,5 @@
 import { findUserById } from "../dao/auth.dao.js";
-import { verifyToken } from "./generateTokens.js";
+import { verifyAccessToken } from "./generateTokens.js";
 
 export const attachUser = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ export const attachUser = async (req, res, next) => {
       return;
     }
 
-    const decoded = await verifyToken(accessToken);
+    const decoded = await verifyAccessToken(accessToken);
     if (!decoded) {
       req.userId = null;
       next();

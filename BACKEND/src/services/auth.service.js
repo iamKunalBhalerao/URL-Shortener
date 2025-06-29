@@ -1,4 +1,7 @@
-import { generateAccessAndRefreshTokens } from "../utils/generateTokens.js";
+import {
+  generateAccessAndRefreshTokens,
+  verifyRefreshToken,
+} from "../utils/generateTokens.js";
 import { conflictError, UnauthorizedError } from "../utils/errorHandler.js";
 import {
   createUserInDB,
@@ -60,5 +63,33 @@ export const isUserAuthenticated = async (userId) => {
     return user;
   } catch (err) {
     throw err;
+  }
+};
+
+export const refreshTokens = async (inCommingRefreshToken) => {
+  try {
+    const decoded = await verifyRefreshToken(inCommingRefreshToken);
+
+    if (!decoded) {
+      throw new UnauthorizedError("You are not Authorized");
+    }
+
+    const user = await findUserById(decoded._id);
+
+    if (!user) {
+      throw new Error("Invalid Refresh Token!");
+    }
+
+    if (inCommingRefreshToken !== user?.refreshToken) {
+      throw new Error("Refresh Token is Expired for User !");
+    }
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+      user._id
+    );
+
+    return { accessToken, refreshToken };
+  } catch (error) {
+    throw error;
   }
 };
