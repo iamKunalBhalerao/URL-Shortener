@@ -16,11 +16,25 @@ const urlSchema = new Schema({
     required: true,
     default: 0,
   },
+  maxClicks: {
+    type: Number,
+    default: null,
+  },
+  expiresAt: {
+    type: Date,
+    default: null
+  },
+  expired: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
+
+urlSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const Url = model("Url", urlSchema);
 

@@ -7,7 +7,7 @@ import { isAuth } from "../middlewares/auth.middleware.js";
 
 const shortUrlRouter = Router();
 
-shortUrlRouter.route("/").post(createShortUrl);
+shortUrlRouter.route("/").post(isAuth, createShortUrl);
 shortUrlRouter.route("/:shortUrl").get(redirectShortUrl);
 
 export default shortUrlRouter;

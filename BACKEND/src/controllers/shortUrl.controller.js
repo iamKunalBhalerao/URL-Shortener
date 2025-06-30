@@ -7,20 +7,31 @@ import AsyncHandler from "../utils/tryCatchWrapper.js";
 
 export const createShortUrl = AsyncHandler(async (req, res, next) => {
   try {
-    const { fullUrl, slug } = req.body;
+    const { fullUrl, slug, maxClicks, expiryTimeInMinutes, isTemporary } = req.body;
+    
     if (!fullUrl) throw new Error("Full URL is required");
-    if (req.user) {
-      const shortUrl = await createShortUrlWithUser(
-        fullUrl,
-        req.userId,
-        slug
-      );
-      res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
-      return;
+    
+    const userId = req.userId;
+    
+    if (userId) {
+      const result = await createShortUrlWithUser( fullUrl, slug, userId, maxClicks, expiryTimeInMinutes, isTemporary);
+
+      res.status(200).json({
+        success: true,
+        shortUrl: process.env.APP_URL + result.shortUrl,
+        message: result.isTemporary
+          ? "Temporary Link is Created."
+          : "Permanent Link is Created.",
+        expiresAt: result.expiresAt,
+        maxClicks: result.maxClicks,
+      });
     } else {
       const shortUrl = await createShortUrlWithoutUser(fullUrl);
-      res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
-      return;
+      res.status(200).json({ 
+        success: true,
+        shortUrl: process.env.APP_URL + shortUrl,
+        shortUrl
+       });
     }
   } catch (err) {
     next(err);
@@ -30,20 +41,15 @@ export const createShortUrl = AsyncHandler(async (req, res, next) => {
 export const redirectShortUrl = AsyncHandler(async (req, res, next) => {
   try {
     const { shortUrl } = req.params;
-    // if (!shortUrl) throw new Error("Short URL is required");
+
+    if (!shortUrl) throw new Error("Short URL is required");
+
     const fullUrl = await searchShortUrlInDB(shortUrl);
+
     if (!fullUrl) throw new Error("Short URL not found");
+
     res.redirect(fullUrl);
   } catch (err) {
     next(err);
   }
 });
-
-// export const createCustomShortUrl  = AsyncHandler(async (req, res, next) => {
-//   try{
-//     const {fullUrl, slug} = req.body;
-//     if(!fullUrl) throw new Error("Full URL is required");
-//     const shortUrl = await createShortUrlWithoutUser(fullUrl, slug);
-//     res.status(200).json({shortUrl: process.env.APP_URL + shortUrl});
-//   }catch(err){next(err)}
-// })

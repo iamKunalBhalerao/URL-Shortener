@@ -26,7 +26,7 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(attachUser);
+// app.use(attachUser);
 
 // Route Imports
 import shortUrlRouter from "./src/routes/shortUrl.route.js";
