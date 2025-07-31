@@ -3,7 +3,7 @@ import React from "react";
 const FeatureText = () => {
   return (
     <>
-      <div className="w-7xl flex flex-col items-center justify-center font-[gilroy] text-center">
+      <div className="w-7xl flex flex-col items-center justify-center text-center">
         <h1 className="text-5xl font-bold text-zinc-900">
           Your Links, Reimagined.
         </h1>

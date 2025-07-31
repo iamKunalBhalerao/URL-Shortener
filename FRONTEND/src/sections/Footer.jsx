@@ -13,7 +13,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="font-[gilroy] w-full h-20 bg-zinc-800 flex items-center justify-center">
+      <div className="w-full h-20 bg-zinc-800 flex items-center justify-center">
         <div className="w-7xl flex justify-between">
           <h2 className="text-3xl text-white font-medium font-stretch-extra-condensed">
             SHORTIVE
