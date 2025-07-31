@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 import OverallButton from "./OverallButton";
+import { logout } from "../api/User.api";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,7 +49,7 @@ const Navbar = () => {
                     </span>
                     <button
                       className="bg-gray-100 hover:bg-gray-200 cursor-pointer text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                      onClick={() => goto("/logout")}
+                      onClick={async () => await logout()}
                     >
                       Logout
                     </button>

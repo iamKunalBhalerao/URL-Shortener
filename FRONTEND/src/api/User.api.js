@@ -30,7 +30,7 @@ export const signin = async (email, password) => {
 export const logout = async () => {
     axiosInstance.defaults.withCredentials = true;
   try {
-    const { data } = await axiosInstance.post("/api/auth/logout");
+    const { data } = await axiosInstance.get("/api/auth/logout");
     return data;
   } catch (error) {
     return error;

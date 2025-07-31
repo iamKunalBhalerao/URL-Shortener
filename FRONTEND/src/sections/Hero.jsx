@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import HeroText from "../components/HeroText";
-import HeroSearchBar from "../components/HeroSearchBar";
 import SubHeading from "../components/SubHeading";
 import ShortUrlDialog from "../components/ShortUrlDialog";
 import OverallButton from "../components/OverallButton";
@@ -44,8 +43,6 @@ const Hero = () => {
       setCopied(false);
     }, 2000);
   };
-
-  console.log(isAuthenticated)
 
   return (
     <>

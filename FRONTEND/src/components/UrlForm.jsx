@@ -42,7 +42,7 @@ const UrlForm = () => {
 
   return (
     <>
-      <div className="bg-white p-8 rounded-lg w-full lg:max-w-md border-1 border-zinc-200">
+      <div className="bg-white p-8 mt-20 rounded-lg w-full lg:max-w-md border-1 border-zinc-200">
         <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
 
         <div className="space-y-4">
