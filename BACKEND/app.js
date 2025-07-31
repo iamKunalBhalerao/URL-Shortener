@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const whitelist = ["http://localhost:5173"]; // Add Your Hosted domsain name
+const whitelist = ["http://localhost:5173", "https://shorturly.vercel.app"]; // Add Your Hosted domsain name
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -26,7 +26,7 @@ app.use(
   })
 );
 app.use(cookieParser());
-// app.use(attachUser);
+app.use(attachUser);
 
 // Route Imports
 import shortUrlRouter from "./src/routes/shortUrl.route.js";
@@ -34,7 +34,7 @@ import authRouter from "./src/routes/auth.route.js";
 import userRouter from "./src/routes/user.route.js";
 
 // Router Calls
-app.use("/api", shortUrlRouter);
+app.use("/", shortUrlRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 

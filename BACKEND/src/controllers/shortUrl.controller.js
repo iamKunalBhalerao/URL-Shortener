@@ -29,8 +29,7 @@ export const createShortUrl = AsyncHandler(async (req, res, next) => {
       const shortUrl = await createShortUrlWithoutUser(fullUrl);
       res.status(200).json({ 
         success: true,
-        shortUrl: process.env.APP_URL + shortUrl,
-        shortUrl
+        shortUrl: process.env.APP_URL + shortUrl
        });
     }
   } catch (err) {
