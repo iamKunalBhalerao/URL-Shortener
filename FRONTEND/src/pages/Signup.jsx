@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthHeading from "../components/AuthHEading";
+import AuthHeading from "../components/AuthHeading";
 import AuthSubHeading from "../components/AuthSubHeading";
 import InputBox from "../components/InputBox";
 import Button from "../components/Button";

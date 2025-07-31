@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AuthHeading from "../components/AuthHEading";
 import AuthSubHeading from "../components/AuthSubHeading";
 import InputBox from "../components/InputBox";
 import Button from "../components/Button";
@@ -8,6 +7,7 @@ import { signin } from "../api/User.api";
 import { useNavigate } from "@tanstack/react-router";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/authSlice";
+import AuthHeading from "../components/AuthHeading";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
