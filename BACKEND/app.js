@@ -33,6 +33,10 @@ import shortUrlRouter from "./src/routes/shortUrl.route.js";
 import authRouter from "./src/routes/auth.route.js";
 import userRouter from "./src/routes/user.route.js";
 
+app.get("/", (req, res) => {
+  res.redirect("https://shorturly.vercel.app/");
+});
+
 // Router Calls
 app.use("/", shortUrlRouter);
 app.use("/api/auth", authRouter);
