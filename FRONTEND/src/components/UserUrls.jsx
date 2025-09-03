@@ -18,7 +18,7 @@ const UserUrls = () => {
   const [copiedId, setCopiedId] = useState(null);
 
   const handleCopy = (url, id) => {
-    navigator.clipboard.writeText(`https://usly.vercel.app/api/${url}`);
+    navigator.clipboard.writeText(`https://shorturly.onrender.com/api/${url}`);
     setCopiedId(id);
 
     // Reset copied state after 2 seconds
@@ -113,8 +113,8 @@ const UserUrls = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-blue-600 font-medium">
-                    <a href={`https://usly.vercel.app/api/${url.shortUrl}`} target="_blank">
-                    {`https://usly.vercel.app/api/${url.shortUrl}`}
+                    <a href={`https://shorturly.onrender.com/api/${url.shortUrl}`} target="_blank">
+                    {`https://shorturly.onrender.com/api/${url.shortUrl}`}
                     </a>
                   </div>
                 </td>
