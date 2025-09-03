@@ -8,7 +8,6 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Response interceptor for handling errors
 axiosInstance.interceptors.response.use(
   (response) => {
     // Any status code within the range of 2xx causes this function to trigger
